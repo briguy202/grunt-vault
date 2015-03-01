@@ -1,8 +1,6 @@
 'use strict';
 
 module.exports = function(grunt) {
-    var extendGruntPlugin = require('extend-grunt-plugin');
-
     grunt.registerMultiTask('vaultpull', 'Vaults content from an AEM instance down to a filesystem.', function() {
         var options = this.options({
             noop: false,
