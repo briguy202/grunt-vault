@@ -1,7 +1,7 @@
 {
   "name": "grunt-vault",
   "description": "Vaults content from an AEM instance down to a filesystem.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/AmwayCorp/tools",
   "author": {
     "name": "Brian Hibma",
