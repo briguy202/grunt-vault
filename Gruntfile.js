@@ -81,7 +81,7 @@ module.exports = function(grunt) {
 
         exec: {
             vaultexec: {
-                cmd: 'bin/vlt-3.1.6 -v --credentials <%= exec.username %>:<%= exec.password %> export <%= exec.environment %>/crx <%= exec.sourcepath %> <%= exec.destinationpath %>'
+                cmd: 'bin/vlt-3.1.6 -v --credentials <%= exec.vaultexec.username %>:<%= exec.vaultexec.password %> export <%= exec.vaultexec.environment %>/crx <%= exec.vaultexec.sourcepath %> <%= exec.vaultexec.destinationpath %>'
             }
         },
 

@@ -18,11 +18,11 @@ module.exports = function(grunt) {
 
         grunt.log.writeln('Vaulting from "' + options.environment + '" to "' + options.destination + '".  This will take a while ...');
 
-        grunt.config.set('exec.username', options.username);
-        grunt.config.set('exec.password', options.password);
-        grunt.config.set('exec.environment', options.environment);
-        grunt.config.set('exec.sourcepath', options.sourcepath);
-        grunt.config.set('exec.destinationpath', options.destination);
+        grunt.config.set('exec.vaultexec.username', options.username);
+        grunt.config.set('exec.vaultexec.password', options.password);
+        grunt.config.set('exec.vaultexec.environment', options.environment);
+        grunt.config.set('exec.vaultexec.sourcepath', options.sourcepath);
+        grunt.config.set('exec.vaultexec.destinationpath', options.destination);
 
         // Create the output path
         grunt.file.mkdir(options.destination);
