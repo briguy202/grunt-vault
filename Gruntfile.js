@@ -6,9 +6,13 @@
  * Licensed under the MIT license.
  */
 
-'use strict';
-
 module.exports = function(grunt) {
+    'use strict';
+
+    require('load-grunt-tasks')(grunt, {
+        pattern: ['grunt-*']
+    });
+
     grunt.initConfig({
         jshint: {
             all: [
@@ -79,12 +83,6 @@ module.exports = function(grunt) {
             }
         },
 
-        exec: {
-            vaultexec: {
-                cmd: 'bin/vlt-3.1.6 -v --credentials <%= exec.vaultexec.username %>:<%= exec.vaultexec.password %> export <%= exec.vaultexec.environment %>/crx <%= exec.vaultexec.sourcepath %> <%= exec.vaultexec.destinationpath %>'
-            }
-        },
-
         // Unit tests.
         nodeunit: {
             tests: ['test/*_test.js'],
@@ -96,12 +94,6 @@ module.exports = function(grunt) {
 
     // Actually load this plugin's task(s).
     grunt.loadTasks('tasks');
-
-    // These plugins provide necessary tasks.
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-nodeunit');
-    grunt.loadNpmTasks('grunt-exec');
 
     grunt.registerTask('test_vaultpull', ['clean', 'vaultpull', 'nodeunit:vaultpull_test', 'clean']);
     grunt.registerTask('test_vaultclean', ['clean', 'vaultclean', 'nodeunit:vaultclean_test', 'clean']);

@@ -11,24 +11,28 @@ module.exports = function(grunt) {
             destination: 'vaultDefault'
         });
 
+        var path = require('path'),
+            basedir = path.join(__dirname, '..');
+
         if (grunt.file.exists(options.destination)) {
             grunt.log.writeln('Deleting ' + options.destination);
             grunt.file.delete(options.destination);
         }
 
-        grunt.log.writeln('Vaulting from "' + options.environment + '" to "' + options.destination + '".  This will take a while ...');
-
-        grunt.config.set('exec.vaultexec.username', options.username);
-        grunt.config.set('exec.vaultexec.password', options.password);
-        grunt.config.set('exec.vaultexec.environment', options.environment);
-        grunt.config.set('exec.vaultexec.sourcepath', options.sourcepath);
-        grunt.config.set('exec.vaultexec.destinationpath', options.destination);
-
         // Create the output path
         grunt.file.mkdir(options.destination);
+        grunt.log.writeln('Vaulting from "' + options.environment + '" to "' + options.destination + '".  This will take a while ...');
+
+        grunt.config('exec', {
+            vaultexec: {
+                cmd: path.join(basedir, 'bin/vlt-3.1.6') + ' -v --credentials '+options.username+':'+options.password+' export '+options.environment+'/crx '+options.sourcepath+' '+options.destination
+            }
+        });
+
+        require('grunt-exec/tasks/exec')(grunt);
 
         if (!options.noop) {
-            grunt.task.run(['exec:vaultexec']);
+            grunt.task.run(['exec']);
         } else {
             grunt.log.writeln('Noop mode, not doing anything.');
         }
@@ -43,7 +47,7 @@ module.exports = function(grunt) {
 
         if (this.files.length === 0) {
             grunt.log.warn('You must specify at least one file to clean.');
-            return;
+            return false;
         }
         grunt.verbose.writeln('Executing vault clean over \'' + this.files.length + '\' file groups.');
 
