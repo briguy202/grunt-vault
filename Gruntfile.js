@@ -45,6 +45,7 @@ module.exports = function(grunt) {
 
             test_from_local: {
                 options: {
+                    // Running this task assumes that you are running an AEM environment at http://localhost:4502
                     noop: false,
                     destination: 'tmp/local'
                 }
