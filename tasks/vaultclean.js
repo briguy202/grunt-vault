@@ -1,43 +1,5 @@
 module.exports = function(grunt) {
     'use strict';
-    grunt.registerMultiTask('vaultpull', 'Vaults content from an AEM instance down to a filesystem.', function() {
-        var options = this.options({
-            noop: false,
-            username: 'admin',
-            password: 'admin',
-            environment: 'http://127.0.0.1:4502',
-            sourcepath: '/content/geometrixx',
-            destination: 'vaultDefault'
-        });
-
-        var path = require('path'),
-            basedir = path.join(__dirname, '..');
-
-        if (grunt.file.exists(options.destination)) {
-            grunt.log.writeln('Deleting ' + options.destination);
-            grunt.file.delete(options.destination);
-        }
-
-        // Create the output path
-        grunt.file.mkdir(options.destination);
-        grunt.log.writeln('Vaulting from "' + options.environment + '" to "' + options.destination + '".  This will take a while ...');
-
-        grunt.config('exec', {
-            vaultexec: {
-                cmd: path.join(basedir, 'bin/vlt-3.1.6') + ' -v --credentials '+options.username+':'+options.password+' export '+options.environment+'/crx '+options.sourcepath+' '+options.destination
-            }
-        });
-
-        require('grunt-exec/tasks/exec')(grunt);
-
-        if (!options.noop) {
-            grunt.task.run(['exec']);
-        } else {
-            grunt.log.writeln('Noop mode, not doing anything.');
-        }
-    });
-
-
     grunt.registerMultiTask('vaultclean', 'Cleans vaulted content from an AEM instance to prepare it for source control.', function() {
         var options = this.options({
             jcr_cq_nodes: [],
@@ -52,6 +14,7 @@ module.exports = function(grunt) {
 
         // Iterate over all specified file groups.
         this.files.forEach(function(f) {
+            grunt.verbose.writeln('Processing file \'' + f.src + '\'.');
             var contents = f.src.filter(function(filepath) {
                 // Remove nonexistent files (it's up to you to filter or warn here).
                 if (!grunt.file.exists(filepath)) {
@@ -64,6 +27,7 @@ module.exports = function(grunt) {
                 var cleanfile = filepath;
                 if (f.dest) {
                     cleanfile = f.dest;
+                    grunt.verbose.writeln('Destination specified, using cleanfile \''+cleanfile+'\'.');
                     grunt.file.copy(filepath, f.dest);
                 }
                 grunt.verbose.writeln('Clean: ' + cleanfile);
@@ -71,7 +35,6 @@ module.exports = function(grunt) {
                 var contents = grunt.file.read(cleanfile);
 
                 if (options.jcr_cq_nodes.length > 0) {
-                    grunt.verbose.writeln('Replacing jcr/cq lines: ' + options.jcr_cq_nodes.join(', ') + '.');
                     var regex;
 
                     // Remove the attributes passed in from the options
