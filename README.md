@@ -24,7 +24,7 @@ In your project's Gruntfile, add a section named `vaultpull` to the data object 
 
 ```js
 grunt.initConfig({
-  vault: {
+  vaultpull: {
     options: {
       // Task-specific options go here.
     },
@@ -92,23 +92,6 @@ grunt.initConfig({
         destination: '.vaultedcontent'
       }
     }
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  vault: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
   },
 });
 ```
