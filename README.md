@@ -17,10 +17,10 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-vault');
 ```
 
-## The "vault" task
+## The "vaultpull" task
 
 ### Overview
-In your project's Gruntfile, add a section named `vault` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `vaultpull` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
@@ -37,17 +37,41 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.noop
+Type: `Boolean`
+Default value: `false`
+
+A boolean value that determines whether the vault command will actually be called.  Useful only for testing.
+
+#### options.username
 Type: `String`
-Default value: `',  '`
+Default value: `'admin'`
 
-A string value that is used to do something with whatever.
+A string value for the username used to connect to the AEM instance.
 
-#### options.punctuation
+#### options.password
 Type: `String`
-Default value: `'.'`
+Default value: `'admin'`
 
-A string value that is used to do something else with whatever else.
+A string value for the password used to connect to the AEM instance.
+
+#### options.environment
+Type: `String`
+Default value: `'http://127.0.0.1:4502'`
+
+A string value representing the base URL used to connect to the AEM instance.
+
+#### options.sourcepath
+Type: `String`
+Default value: `'/content/geometrixx'`
+
+A string value for the path within the JCR that will be vaulted down to the filesystem.  Be sure to make this value as specific as it can be to avoid vaulting too much content from the repository.
+
+#### options.destination
+Type: `String`
+Default value: `'vaultDefault'`
+
+A string value defining the path where the content will be placed on the local filesystem once it is vaulted down.
 
 ### Usage Examples
 
@@ -56,11 +80,18 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  vault: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+  vaultpull: {
+    options: {
+      environment: 'http://localhost:4502',
+      sourcepath: '/content/some/path',
+      username: 'myusername',
+      password: 'mypassword'
     },
+    dev_site_content: {
+      options: {
+        destination: '.vaultedcontent'
+      }
+    }
   },
 });
 ```
