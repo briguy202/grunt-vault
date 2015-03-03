@@ -96,6 +96,49 @@ grunt.initConfig({
 });
 ```
 
+## The "vaultclean" task
+
+### Overview
+In your project's Gruntfile, add a section named `vaultclean` to the data object passed into `grunt.initConfig()`.
+
+### Options
+
+#### options.jcr_cq_nodes
+Type: `Array[]`
+Default value: `[]`
+
+An array containing the list of jcr: or cq: attributes that will be removed from the content.  For example, specifying `['lastModified', 'lastModifiedBy']` in the array will remove all instances of jcr:lastModified and jcr:lastModifiedBy from the vaulted content.  This is useful for removing attributes that change frequently, causing noisy diffs whenever content is vaulted and placed in source control.
+
+#### options.replacements
+Type: `Array[]`
+Default value: `[]`
+
+An array containing the list of find-and-replace strings to be applied to the content.
+
+### Usage Examples
+
+#### Default Options
+In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+
+```js
+grunt.initConfig({
+  vaultclean: {
+    target: {
+      files: [
+        { src: ['.vaultedcontent/**/.*.xml'] }
+      ],
+      options: {
+        replacements: [
+          { search: '/content/somepath/', replacement: '/content/dev/somepath/' },
+          { search: '/dam/somepath/', replacement: '/dam/dev/somepath/' }
+        ],
+        jcr_cq_nodes: ['lastModified', 'lastModifiedBy', 'isCheckedOut', 'uuid']
+      }
+    }
+  }
+});
+```
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
