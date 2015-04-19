@@ -71,8 +71,13 @@ module.exports = function(grunt) {
                         { search: '/apps/geometrixx/', replacement: '/apps/dev/geometrixx/' },
                         { search: '/content/dam/geometrixx/', replacement: '/content/dev/dam/geometrixx/' }
                     ],
-                    jcr_cq_nodes: ['lastModified', 'lastModifiedBy', 'isCheckedOut', 'uuid']
+                    removal_nodes: ['sling:resourceType', 'pageTitle', 'lastModified', 'lastModifiedBy', 'dam:Comments', 'dam:extracted', 'isCheckedOut', 'uuid']
                 }
+            },
+            test_skipped: {
+                files: [
+                    { src: ['**/*.*', '!**/skippedFolder/*.*'], dest: 'tmp/skipped/', expand: true, cwd: 'test/fixtures/skipped' }
+                ]
             },
             test_compression: {
                 files: [
