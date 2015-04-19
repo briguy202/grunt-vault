@@ -103,11 +103,11 @@ In your project's Gruntfile, add a section named `vaultclean` to the data object
 
 ### Options
 
-#### options.jcr_cq_nodes
+#### options.removal_nodes
 Type: `Array[]`
 Default value: `[]`
 
-An array containing the list of jcr: or cq: attributes that will be removed from the content.  For example, specifying `['lastModified', 'lastModifiedBy']` in the array will remove all instances of jcr:lastModified and jcr:lastModifiedBy from the vaulted content.  This is useful for removing attributes that change frequently, causing noisy diffs whenever content is vaulted and placed in source control.
+An array containing the list of attributes that will be removed from the content.  For example, specifying `['lastModified', 'lastModifiedBy', 'dam:sha1']` in the array will remove all instances of jcr:lastModified, jcr:lastModifiedBy, and dam:sha1 from the vaulted content.  This is useful for removing attributes that change frequently, causing noisy diffs whenever content is vaulted and placed in source control.
 
 #### options.replacements
 Type: `Array[]`
@@ -132,7 +132,7 @@ grunt.initConfig({
           { search: '/content/somepath/', replacement: '/content/dev/somepath/' },
           { search: '/dam/somepath/', replacement: '/dam/dev/somepath/' }
         ],
-        jcr_cq_nodes: ['lastModified', 'lastModifiedBy', 'isCheckedOut', 'uuid']
+        removal_nodes: ['lastModified', 'lastModifiedBy', 'isCheckedOut', 'uuid']
       }
     }
   }
