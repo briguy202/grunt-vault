@@ -50,5 +50,11 @@ exports.vault = {
         test.equal(actual.indexOf('uuid'), -1, 'Should not be able to find \'uuidd\'');
 
         test.done();
+    },
+    test_skipped: function(test) {
+        test.expect(1);
+
+        test.equal(grunt.file.exists('tmp/skipped/skippedFolder/file1.txt'), false, 'Skipped files/folders should not exist.');
+        test.done();
     }
 };

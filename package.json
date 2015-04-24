@@ -1,23 +1,23 @@
 {
   "name": "grunt-vault",
   "description": "Vaults content from an AEM instance down to a filesystem.",
-  "version": "0.1.1",
-  "homepage": "https://github.com/AmwayCorp/tools",
+  "version": "0.3.0",
+  "homepage": "https://github.com/briguy202/grunt-vault",
   "author": {
     "name": "Brian Hibma",
-    "email": "brian.hibma@amway.com"
+    "email": "bhibma@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/AmwayCorp/tools.git"
+    "url": "https://github.com/briguy202/grunt-vault.git"
   },
   "bugs": {
-    "url": "https://github.com/AmwayCorp/tools/issues"
+    "url": "https://github.com/briguy202/grunt-vault/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/AmwayCorp/tools/blob/master/LICENSE-MIT"
+      "url": "https://github.com/briguy202/grunt-vault/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
